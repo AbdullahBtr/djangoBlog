@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+
+
+<div class="container">
+{% block content %}
+
+ 
+        <div class="jumbotron" style="background-color:ghostwhite">
+            {% for post in object_list%}
+                <h3 style="padding-left:40%" class="lead">Name: {{ post.author.first_name}} {{post.author.last_name}}</h3>
+                <p class="text-muted" style="padding-left:40%">Created: {{post.author.created_time.day}}.{{post.author.created_time.month}}.{{post.author.created_time.year}}</p>
+                <p class="text-muted" style="padding-left:40% ">Email: {{post.author.email}}</p>
+            {% endfor %}
+                
+        </div>
+    <div class="row mt-4">
+            <div class=" col-md-3">
+
+            </div>
+        <div class="col-md-5">
+            {% for post in object_list %}
+                <h2 class="border-bottom">{{ post.title }}</h2>
+                <p class="blockquote-footer">by {{ post.author }} | {{ post.created_on }}</p>
+                <p class=" lead">{{ post.body_text|truncatewords:50 }}</p>
+                
+                <p> <a href="{% url 'post_detail' post.slug %}">+read more</p></a>
+            {% endfor %}    
+        </div>    
+    </div>
+{% endblock content%}
+</div>
+

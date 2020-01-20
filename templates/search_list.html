@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div>
+        {% for post in object_list%}
+        <div class=" col-md mt-2">
+                <h2 class="border-bottom">{{ post.title }}</a></h2>
+                  <p class="blockquote-footer">by {{ post.author }} | {{ post.created_on }}</p>
+                  <p class=" lead">{{ post.body_text|truncatewords:50 }}</p>
+                  <p> <a href="{% url 'post_detail' post.slug %}">+read more</p></a>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock content %}

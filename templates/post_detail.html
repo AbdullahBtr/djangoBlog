@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+        <div class=" row">
+            <div class="col-sm-2" >
+
+            </div>
+  <div class="col-md-8">
+    <h1 class="display-4">{{ post.title }}</h1>
+    <p class="blockquote-footer">by {{ object.author }} | {{ object.created_on }}</p>
+    <p class="lead">{{ post.body_text }}</p>
+    
+  {% if user.is_authenticated %}
+    <p><a href="{% url 'post_delete' post.slug%}">Delete </a> 
+      <a href="{% url 'post_edit' post.slug%}"> Edit</a>
+      <a href="{% url 'create_comment' post.slug%}">Comment</a>
+    </p>
+  {% endif %}
+
+  <div class="card-footer">
+    {% for comment in post.comment.all %}
+      <p>
+        <span class="font-weight-bold border-top-0 border border-primary">{{ comment.author }} | {{comment.created_on}} </span>
+          <h4 class="lead">{{ comment.text }}</h4><br>
+      </p>
+    {% endfor %}
+
+  </div>
+
+{% endblock content %}

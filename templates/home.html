@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+<div class="jumbotron mt-2">
+  <h1 class="display-4">Blog App</h1>
+  <p class="lead">A Blog App designed in Django by Abdullah Bataray and Anas Garwal for Project C at Haw Hamburg</p>
+  <p class="lead">
+ 
+  </p>
+</div>
+<div class="container-fluid">
+  <div class ="row border bg-light">
+    <h1 class="display-4 lead">
+      Latest Blog Posts
+    </h1>
+  </div>
+  <div class="row mt-4">
+    <div>
+        {% for post in object_list %}
+        <div class=" col-md mt-2">
+          <h2 class="border-bottom"><a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h2>
+            <p class="blockquote-footer">by<a href="{% url 'profile' post.author %}"> {{ post.author }}</a> | {{ post.created_on }} Comments: {{ post.comment.count }}</a></p>
+            <p class=" lead">{{ post.body_text|truncatewords:50 }}</p>
+            <p> <a href="{% url 'post_detail' post.slug %}">+read more</p></a>
+        </div>
+        {% endfor %}
+       
+    </div>
+  </div>
+  <div>
+  <div class=" mt-4">
+  {% if is_paginated %}
+
+        {% for num in paginator.page_range %}
+          {% if object_list.number == num %}
+            <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+          {% else %}
+          <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>  
+          {% endif %}
+        {% endfor %}
+
+  {% endif %}
+  </div>
+      </div>
+</div>
+{% endblock content %}
